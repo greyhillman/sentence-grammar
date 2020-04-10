@@ -1,0 +1,33 @@
+{
+  "name": "sentence-grammar",
+  "version": "0.1.0",
+  "description": "Visual exercise tool to classify parts of a sentence.",
+  "main": "index.js",
+  "dependencies": {
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.34",
+    "@types/react-dom": "^16.9.6",
+    "source-map-loader": "^0.2.4",
+    "ts-loader": "^6.2.2",
+    "typescript": "^3.8.3",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc --version"
+  },
+  "repository": {
+    "type": "git",
+    "url": "jjkjkgit+https://github.com/greyhillman/sentence-grammar.git"
+  },
+  "author": "Grey Hill",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/greyhillman/sentence-grammar/issues"
+  },
+  "homepage": "https://github.com/greyhillman/sentence-grammar#readme"
+}
