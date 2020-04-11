@@ -102,10 +102,13 @@ export class WordClassList extends React.Component<WordClassListProps, WordClass
 
 export interface SentencePartProps {
     text: string;
+    wordClass: WordClass | null;
+    shiftSelected(): void;
+    ctrlSelected(): void;
+    wordClassSelected(wordClass: WordClass): void;
 }
 
 interface SentencePartState {
-    wordClass: WordClass | null;
     showingWordClassList: boolean;
     wordClassListPosition: ListPosition;
 }
@@ -129,7 +132,6 @@ export class SentencePart extends React.Component<SentencePartProps, SentencePar
     constructor(props: SentencePartProps) {
         super(props);
         this.state = {
-            wordClass: null,
             showingWordClassList: false,
             wordClassListPosition: {
                 x: 0,
@@ -142,20 +144,19 @@ export class SentencePart extends React.Component<SentencePartProps, SentencePar
     }
 
     clickedPart = (e: React.SyntheticEvent) => {
-        console.log(e.currentTarget.getBoundingClientRect());
-
         const mouseEvent = e.nativeEvent as MouseEvent;
         if (mouseEvent && mouseEvent.ctrlKey) {
             // Add this part to the current phrase selection
-        }
+            console.log("Ctrl+click");
+            this.props.ctrlSelected();
+        } else if (mouseEvent && mouseEvent.shiftKey) {
+            console.log("Shift+click");
+            this.props.shiftSelected();
+        } else {
+            console.log("click");
+            const rect = e.currentTarget.getBoundingClientRect();
 
-        console.log(e.nativeEvent as MouseEvent);
-
-        const rect = e.currentTarget.getBoundingClientRect();
-
-        this.setState((prevState, props) => {
-            return {
-                wordClass: prevState.wordClass,
+            this.setState({
                 showingWordClassList: true,
                 wordClassListPosition: {
                     x: rect.x,
@@ -164,17 +165,17 @@ export class SentencePart extends React.Component<SentencePartProps, SentencePar
                     height: rect.height,
                     orientation: Orientation.Down,
                 },
-            };
-        });
+            });
+        }
         return undefined;
     }
 
     closeWordClassList = (wordClass: WordClass | null): undefined => {
-        this.setState((prevState) => {
-            return {
-                wordClass: !wordClass ? prevState.wordClass : wordClass,
-                showingWordClassList: false,
-            };
+        if (wordClass) {
+            this.props.wordClassSelected(wordClass);
+        }
+        this.setState({
+            showingWordClassList: false,
         });
         return undefined;
     }
@@ -199,7 +200,7 @@ export class SentencePart extends React.Component<SentencePartProps, SentencePar
         >
             <PartText
                 text={this.props.text}
-                wordClass={this.state.wordClass}
+                wordClass={this.props.wordClass}
                 clickedWord={this.clickedPart}
              />
             <BackDrop
@@ -222,31 +223,18 @@ interface PartTextProps {
 
 class PartText extends React.Component<PartTextProps, {}> {
     render() {
-        return <Tooltip
-        title={this.props.wordClass || ''}
-        // arrow
-    >
-        <span
-            style={{ color: this.props.wordClass ? getColor(this.props.wordClass) : undefined }}
-            onClick={this.props.clickedWord}
-        >
-            {this.props.text}
-        </span>
-    </Tooltip>;
-        // if (this.props.wordClass) {
-        //     return (
-        //         <Tooltip
-        //             title={this.props.wordClass}
-        //             arrow
-        //         >
-        //             <span style={{ color: getColor(this.props.wordClass) }}>
-        //                 {this.props.text}
-        //             </span>
-        //         </Tooltip>
-        //     )
-        // } else {
-        //     return <span onClick={this.props.clickedWord}>{this.props.text}</span>;
-        // }
+        return (
+            <Tooltip
+                title={this.props.wordClass || ''}
+            >
+                <span
+                    style={{ color: this.props.wordClass ? getColor(this.props.wordClass) : undefined }}
+                    onClick={this.props.clickedWord}
+                >
+                    {this.props.text}
+                </span>
+            </Tooltip>
+        );
     }
 }
 

@@ -1,6 +1,8 @@
 .sentencePart {
     font-size: 1.6em;
     padding: 0 1em 0 1em;
+    pointer-events: auto;
+    user-select: none;
 }
 
 .backdrop {
