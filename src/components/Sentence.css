@@ -1,0 +1,7 @@
+.sentence {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    align-self: center;
+}
