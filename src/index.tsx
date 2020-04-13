@@ -5,5 +5,5 @@ import { Main } from "./components/Main";
 
 ReactDOM.render(
     <Main />,
-    document.getElementById("example")
+    document.getElementById("app-root")
 );

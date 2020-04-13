@@ -1,8 +1,11 @@
-module.exports = {
-    mode: "production",
+const path = require("path");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
-    // Enable sourcemaps for debugging webpack's output.
-    devtool: "source-map",
+module.exports = {
+    entry: {
+        app: "./src/index.tsx",
+    },
+    mode: "production",
 
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions.
@@ -41,5 +44,14 @@ module.exports = {
         "react": "React",
         "react-dom": "ReactDOM",
         "@material-ui/core": "MaterialUI"
-    }
+    },
+
+    plugins: [
+        new CleanWebpackPlugin()
+    ],
+
+    output: {
+        filename: '[name].bundle.js',
+        path: path.resolve(__dirname, "dist"),
+    },
 };
