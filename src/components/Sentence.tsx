@@ -21,6 +21,7 @@ function addPartToSelected(selectedParts: SelectedParts, index: number): Selecte
         selectedParts.indices.push(index);
     }
 
+    selectedParts.indices.sort();
     return selectedParts;
 }
 
