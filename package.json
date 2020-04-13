@@ -25,7 +25,8 @@
   },
   "scripts": {
     "build": "webpack --config webpack.prod.js",
-    "start": "webpack --config webpack.dev.js --watch"
+    "start": "webpack --config webpack.dev.js --watch",
+    "deploy": "npm run build && git subtree push --prefix dist origin gh-pages"
   },
   "husky": {
     "hooks": {
@@ -34,7 +35,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "jjkjkgit+https://github.com/greyhillman/sentence-grammar.git"
+    "url": "git+https://github.com/greyhillman/sentence-grammar.git"
   },
   "author": "Grey Hill",
   "license": "ISC",
